@@ -21,16 +21,12 @@ table {
   font-size: 8px;
   color: rgb(109, 109, 109); 
   text-align:center;
-  white-space:nowrap;
-  transform-origin:50% 50%;
-  transform: rotate(270deg);
 }
-.vertical-line{ 
-  width: 0px;
+.horizontal-line{ 
+  width: 100%;
   z-index: -1;
-  border-right: thin solid #ddd;
-  position: absolute;
-  height: 200px;
-  margin-left: 10px;
-  margin-top: 10px;
+  border-top: thin solid #ccc;
+  height: 1px;
+  margin-left: 0px;
+  margin-top: 0;
 }

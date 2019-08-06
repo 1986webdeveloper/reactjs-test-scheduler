@@ -99,19 +99,21 @@ span.flatpickr-weekday {
 }
 
 .event-box{
-	border-radius: 3px;
-	height: 6px;
-	margin-top: 10px;
+    width: 50px;
+    position: absolute;
+    max-width: 224px;
 }
 .event-id-0{
-	margin-top: 30px;
+	/* margin-left: 40px; */
 }
 
 .schedule-box{
 	-webkit-box-shadow: -1px 2px 15px -1px rgba(0,0,0,0.30);
 	-moz-box-shadow: -1px 2px 15px -1px rgba(0,0,0,0.30);
 	box-shadow: -1px 2px 15px -1px rgba(0,0,0,0.30);
-	padding: 10px 15px;
-    height: 220px;
+	padding: 0px 15px;
+    height: 300px;
 	border-radius: 10px;
+    position: absolute;
+    width: 258px;
 }

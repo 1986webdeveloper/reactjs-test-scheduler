@@ -6,20 +6,23 @@ export const ScheduleGridComponent = () => {
     <div className="gridbox">
       <table className="table">
         <tbody>
-            <tr className="header">
               {
                 times.map((value, index) => {
-                  return <td width="8.33%"  key={index}>{value}</td>
-                })
+                  return (
+                  <tr height="25px" key={index} className="header">
+                    <td width="30px"  key={index}>{value}</td>
+                    <td><div className="horizontal-line" ></div></td>
+                  </tr>
+                )})
               }
-            </tr>
-            <tr className="block">
+            
+            {/* <tr className="block">
               {
                 times.map((value, index) => {
                   return <td width="8.33%" key={index}><div className="vertical-line" ></div></td>
                 })
               }
-            </tr>
+            </tr> */}
           </tbody>
       </table>
     </div>

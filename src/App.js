@@ -13,47 +13,51 @@ let eventsData = [{
   startTime: "09:00",
   endTime: "15:30",
   title: "Blue",
-  colorCode: '#22a7f0'
+  colorCode: '#bbcfea',
+  borderColorCode: '#9BACC0'
 },
 {
   eventDate: todayDate,
   startTime: "09:00",
   endTime: "14:30",
   title: "Green",
-  colorCode: '#23cba7'
+  colorCode: '#7ace6c',
+  borderColorCode: '#3c7a31'
 },
 {
   eventDate: todayDate,
   startTime: "09:30",
   endTime: "11:30",
   title: "Brown",
-  colorCode: 'brown'
+  colorCode: '#c09127',
+  borderColorCode: '#5f4812'
 },
 {
   eventDate: todayDate,
   startTime: "11:30",
   endTime: "12:00",
   title: "Red",
-  colorCode: '#e74c3c'
+  colorCode: '#8e4067',
+  borderColorCode: '#482738'
 },
 {
   eventDate: todayDate,
   startTime: "14:30",
   endTime: "15:00",
   title: "Orange",
-  colorCode: '#f9b42d'
+  colorCode: '#f3a669',
+  borderColorCode: '#925830'
 },
 {
   eventDate: todayDate,
   startTime: "15:30",
   endTime: "16:00",
   title: "Yellow",
-  colorCode: '#eeee00'
-}
-];
+  colorCode: '#f7f36e',
+  borderColorCode: '#96934e'
+}];
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -61,6 +65,14 @@ class App extends Component {
       dateSelected: new Date(),
       events: this.getEvents(todayDate)
     };
+    this.timeList = [];
+
+    eventsData.forEach(item => {
+      this.timeList.push({
+        startTime: item.startTime,
+        endTime: item.endTime
+      });
+    });
   }
 
   formateDate(timestamp) {
@@ -145,6 +157,38 @@ class App extends Component {
     return sloatWidth + "%";
   }
 
+  calcLeftPosition = (item, index) => {
+    var count = 0;
+    var startTime = item.startTime;
+    for(var i = index; i >= 0; i--){
+      if(+this.getDateTimeObj(this.timeList[i].endTime) > +this.getDateTimeObj(startTime)){
+        count++;
+      }
+    }
+    if(count > 0) count--;
+    return (((224 / 3) * count) + 50) + "px";
+  }
+
+  calWidth = (item, index) => {
+    var count = 0;
+    var startTime = item.startTime;
+    for(var i = index; i >= 0; i--){
+      if(+this.getDateTimeObj(this.timeList[i].endTime) > +this.getDateTimeObj(startTime)){
+        count++;
+      }
+    }
+    count = (index > 3) ? --count : 2;
+    var objWidth = (224 / 3);
+    return (224 - (objWidth * count)  - 1) + "px";
+  }
+
+  getDateTimeObj(time) {
+    var today = new Date();
+    var _t = time.split(":");
+    today.setHours(_t[0], _t[1], 0, 0);
+    return today;
+  }
+
   render() {
     const { dateSelected } = this.state;
     return (
@@ -169,7 +213,7 @@ class App extends Component {
             <ScheduleGridComponent />
             {
               this.state.events.map((item, index) => (
-                <div className={"event-box event-id-" + index} data-tip={item.title + " : " + item.startTime + " - " + item.endTime} style={{ backgroundColor: item.colorCode, width: this.calcTimeSloat(item), marginLeft: this.calcStartPosition(item) }} key={index}>
+                <div className={"event-box event-id-" + index} data-tip={item.title + " : " + item.startTime + " - " + item.endTime} style={{ backgroundColor: item.colorCode, border: "1px solid "+item.borderColorCode, width: this.calWidth(item, index), height: this.calcTimeSloat(item), top: this.calcStartPosition(item), left: this.calcLeftPosition(item, index) }} key={index}>
                 </div>
               ))
             }
